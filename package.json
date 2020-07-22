@@ -1,12 +1,27 @@
 {
   "name": "hmwrk-react_redux_saga",
   "version": "1.0.0",
-  "description": "Solution for **React-Redux (part 2)** homework. BSA-20",
-  "main": "index.js",
+  "description": "Solution for **React-Redux-Saga (part 3)** homework. BSA-20",
+  "main": "server.js",
+  "engines": {
+    "npm": "6.14.4",
+    "node": "12.16.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client-install": "npm install --prefix client",
+    "server-install": "npm install --prefix server",
+    "start": "npm run start --prefix server",
+    "server": "npm run dev --prefix server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "",
   "license": "ISC",
-  "keywords": []
+  "keywords": [],
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.4"
+  }
 }
