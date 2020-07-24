@@ -15,7 +15,7 @@ class MessageRepository {
     const newMessage = new this.model({
       userId: userId,
       user: user,
-      text: text
+      text: text,
     });
 
     return await newMessage.save();
@@ -24,8 +24,17 @@ class MessageRepository {
   async editMessage(message) {
     const updatedMessage = await this.model.findByIdAndUpdate(
       message._id,
-      { $set: {text: message.text}},
-      {new: true}
+      { $set: { text: message.text } },
+      { new: true }
+    );
+    return updatedMessage;
+  }
+
+  async updateMessageLikes(message) {
+    const updatedMessage = await this.model.findByIdAndUpdate(
+      message._id,
+      { $set: { likes: message.likes } },
+      { new: true }
     );
     return updatedMessage;
   }

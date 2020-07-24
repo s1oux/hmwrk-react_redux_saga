@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import './messageForm.css';
 
-const MessageForm = ({ addMessage }) => {
+const MessageForm = ({ addMessage, user }) => {
   const [text, setText] = useState('');
   const [isTextValid, setIsTextValid] = useState(true);
 
@@ -20,7 +20,11 @@ const MessageForm = ({ addMessage }) => {
     if (!isValid) {
       return;
     }
-    addMessage(text);
+    addMessage({
+      userId: user._id,
+      user: user.name,
+      text: text,
+    });
     clearForm();
   };
 

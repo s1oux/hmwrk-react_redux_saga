@@ -1,15 +1,17 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import messageReducer from './reducers/messageReducer';
 import userReducer from './reducers/userReducer';
 
-const initialState = {
+import userSaga from './sagas/userSaga';
+import messageSaga from './sagas/messageSaga';
 
-};
+const initialState = {};
 
-const middlewares = [thunk];
+const sagaMiddleware = createSagaMiddleware();
+const middlewares = [sagaMiddleware];
 
 const composedEnhancers = compose(
   composeWithDevTools(applyMiddleware(...middlewares))
@@ -25,5 +27,7 @@ const rootReducer = combineReducers({
 });
 
 const store = createStore(rootReducer, initialState, composedEnhancers);
+sagaMiddleware.run(userSaga);
+sagaMiddleware.run(messageSaga);
 
 export default store;

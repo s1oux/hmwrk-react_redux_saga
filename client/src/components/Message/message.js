@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import { getUserImgLink } from '../../helpers/imageHelper';
 import { isLikedByUser } from '../../controllers/messageController';
@@ -6,24 +7,29 @@ import { isCurrentUserMessage } from '../../controllers/userController';
 
 import './message.css';
 
-const message = ({ user, message, remove, toggle, like }) => {
+const Message = ({ user, message, remove, onEdit, like, history }) => {
   const isOwnMessage = isCurrentUserMessage(user, message);
   const classes = ['message'];
   const actionLikeClasses = ['message__action', 'message__action-like'];
   actionLikeClasses.push(isLikedByUser(message, user) ? 'liked' : '');
   classes.push(isOwnMessage ? 'ownMessage' : '');
 
+  const handleEdit = () => {
+    onEdit(message);
+    history.push('/edit');
+  };
+
   const actions = isOwnMessage ? (
     <div className="message__actions">
       <div
         className="message__action message__action-ctrl"
-        onClick={() => toggle(message)}
+        onClick={handleEdit}
       >
         edit
       </div>
       <div
         className="message__action message__action-ctrl"
-        onClick={() => remove(message)}
+        onClick={() => remove(message._id)}
       >
         remove
       </div>
@@ -31,7 +37,7 @@ const message = ({ user, message, remove, toggle, like }) => {
   ) : (
     <div className="message__actions">
       <div
-        onClick={() => like(message.id)}
+        onClick={() => like({ userId: user._id, messageId: message._id })}
         className={actionLikeClasses.join(' ')}
       >
         {message.likes.length}{' '}
@@ -68,4 +74,4 @@ const message = ({ user, message, remove, toggle, like }) => {
   );
 };
 
-export default message;
+export default withRouter(Message);

@@ -1,0 +1,69 @@
+.admin-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.admin-container button {
+  background-color: #009688;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.admin-container button:hover {
+  background-color: #00796b;
+}
+
+.admin-container .add-btn {
+  align-self: flex-end;
+  width: 20%;
+}
+
+.admin-container .table-container {
+  margin-top: 25px;
+  width: 100%;
+}
+
+.table-container table {
+  width: 100%;
+}
+
+.table-container table thead {
+  background-color: #00796b;
+  color: white;
+}
+
+.table-container table thead tr th {
+  padding: 10px;
+}
+
+.table-container table tbody tr td {
+  padding: 5px;
+  text-align: center;
+}
+
+.table-container .table-btn {
+  width: 100%;
+}
+
+.table-container .primary {
+  background-color: rgb(111, 209, 255);
+}
+
+.table-container .primary:hover {
+  background-color: rgb(26, 131, 180);
+}
+
+.table-container .danger {
+  background-color: tomato;
+}
+
+.table-container .danger:hover {
+  background-color: rgb(194, 76, 55);
+}

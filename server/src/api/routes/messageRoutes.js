@@ -25,18 +25,25 @@ router.post('/', (req, res) =>
     .catch((err) => res.json(err))
 );
 
-router.put('/', (req, res) => 
+router.put('/', (req, res) =>
   messageService
     .editMessage(req.body)
-    .then(message => res.json(message))
-    .catch(err => res.json(err))
+    .then((message) => res.json(message))
+    .catch((err) => res.json(err))
 );
 
-router.delete('/:id', (req, res) => 
+router.put('/react', (req, res) =>
+  messageService
+    .toggleLikeMessage(req.body)
+    .then((message) => res.json(message))
+    .catch((err) => res.json(err))
+);
+
+router.delete('/:id', (req, res) =>
   messageService
     .deleteMessage(req.params.id)
-    .then(message => res.json(message))
-    .catch(err => res.json(err))
+    .then((message) => res.json(message))
+    .catch((err) => res.json(err))
 );
 
 module.exports = router;

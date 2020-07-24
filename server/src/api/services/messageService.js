@@ -1,5 +1,3 @@
-const bcrypt = require('bcryptjs');
-
 const MessageRepository = require('../../data/repositories/messageRepository');
 const Message = require('../../data/models/message');
 
@@ -19,7 +17,7 @@ const getMessageById = async (id) => {
   } catch (err) {
     return err;
   }
-}
+};
 
 const addMessage = async (message) => {
   try {
@@ -37,10 +35,24 @@ const editMessage = async (message) => {
   }
 };
 
+const toggleLikeMessage = async ({ userId, messageId }) => {
+  try {
+    const message = await messageRepository.getMessageById(messageId);
+    if (message.likes.includes(userId)) {
+      message.likes = message.likes.filter((id) => id != userId);
+    } else {
+      message.likes.push(userId);
+    }
+    return await messageRepository.updateMessageLikes(message);
+  } catch (err) {
+    return err;
+  }
+};
+
 const deleteMessage = async (id) => {
   try {
     return await messageRepository.deleteMessage(id);
-  } catch(err) {
+  } catch (err) {
     return err;
   }
 };
@@ -50,3 +62,4 @@ exports.addMessage = addMessage;
 exports.getMessageById = getMessageById;
 exports.editMessage = editMessage;
 exports.deleteMessage = deleteMessage;
+exports.toggleLikeMessage = toggleLikeMessage;

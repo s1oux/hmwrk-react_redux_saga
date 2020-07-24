@@ -1,0 +1,122 @@
+.page {
+  background-color: #b2dfdb;
+  color: #212121;
+  display: flex;
+  font-family: 'Mulish', sans-serif;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.flex-center {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  margin: 0 auto;
+  justify-content: center;
+  width: 50%;
+}
+
+.back-btn {
+  align-self: flex-start;
+  color: #009688;
+}
+
+.back-btn:hover {
+  color: #212121;
+}
+
+.error {
+  color: #db4126;
+  border: 1px solid #db4126;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.form-container h3 {
+  font-size: 1.5rem;
+}
+
+.form-inputs {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  justify-content: space-around;
+}
+
+.form-inputs input {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.form-inputs input::last-child {
+  margin-bottom: 0;
+}
+
+.form button {
+  background-color: #009688;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  width: 60%;
+}
+
+.form button:hover {
+  background-color: #00796b;
+}
+
+.input-area {
+  align-items: center;
+  display: flex;
+  height: 50%;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 60%;
+}
+
+.edit-input {
+  border-radius: 2.5px;
+  border-color: #009688;
+  height: 50%;
+  resize: none;
+  margin-top: 10px;
+  padding: 5px 10px;
+  width: 80%;
+}
+
+.edit-input:focus {
+  outline: none;
+}
+
+.input-btn {
+  background-color: #009688;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  width: 50%;
+}
+
+.input-btn:hover {
+  background-color: #00796b;
+}

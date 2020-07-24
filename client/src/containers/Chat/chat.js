@@ -3,62 +3,44 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Spinner from '../../components/Spinner/spinner';
-import Header from '../../components/Header/header';
 import ChatHeader from '../../components/ChatHeader/chatHeader';
 import MessageList from '../../components/MessageList/messageList';
 import MessageForm from '../../components/MessageForm/messageForm';
-import Modal from '../../components/Modal/modal';
-import Footer from '../../components/Footer/footer';
 
 import {
-  loadMessages,
+  getMessages,
   addMessage,
-  likeMessage,
-  removeMessage,
+  deleteMessage,
   editMessage,
-  toggleEditMessage,
-  toggleEditMessageOnKey,
+  toggleLikeMessage,
+  setEditMessageAction,
 } from '../../actions/messageActions';
 
-import { getUser, getUsersCount } from '../../actions/userActions';
+import { getUsersCount } from '../../actions/userActions';
 
 import './chat.css';
 
 const Chat = ({
-  user,
+  currentUser,
   usersCount,
   isLoading,
   messages,
   lastMessageDate,
-  messageOnEdit,
-  loadMessages,
+  getMessages,
   addMessage,
-  likeMessage,
-  removeMessage,
-  editMessage,
-  toggleEditMessage,
-  toggleEditMessageOnKey,
-  getUser,
+  toggleLikeMessage,
+  deleteMessage,
+  setEditMessageAction,
   getUsersCount,
+  history,
 }) => {
   useEffect(() => {
-    document.addEventListener(
-      'keydown',
-      (event) => {
-        if (event.key === 'ArrowUp') {
-          toggleEditMessageOnKey();
-        }
-      },
-      false
-    );
-    loadMessages();
-    getUser();
+    getMessages();
     getUsersCount();
   }, []);
 
   return (
     <div className="page">
-      <Header />
       {isLoading ? (
         <Spinner />
       ) : (
@@ -70,23 +52,15 @@ const Chat = ({
             lastMessageTime={lastMessageDate}
           />
           <MessageList
-            user={user}
+            user={currentUser}
             messages={messages}
-            removeMessage={removeMessage}
-            toggleModal={toggleEditMessage}
-            likeMessage={likeMessage}
+            removeMessage={deleteMessage}
+            openEdit={setEditMessageAction}
+            likeMessage={toggleLikeMessage}
           />
-          <MessageForm addMessage={addMessage} />
-          {messageOnEdit && (
-            <Modal
-              toggle={toggleEditMessage}
-              messageToEdit={messageOnEdit}
-              editMessage={editMessage}
-            />
-          )}
+          <MessageForm user={currentUser} addMessage={addMessage} />
         </div>
       )}
-      <Footer />
     </div>
   );
 };
@@ -98,7 +72,7 @@ Chat.defaultProps = {
 };
 
 const mapStateToProps = (rootState) => ({
-  user: rootState.user.user,
+  currentUser: rootState.user.authenticatedUser,
   usersCount: rootState.user.usersInChat,
   isLoading: rootState.messages.loading,
   messages: rootState.messages.messages,
@@ -107,15 +81,13 @@ const mapStateToProps = (rootState) => ({
 });
 
 const actions = {
-  getUser,
-  getUsersCount,
-  loadMessages,
+  getMessages,
   addMessage,
-  likeMessage,
-  removeMessage,
+  deleteMessage,
   editMessage,
-  toggleEditMessage,
-  toggleEditMessageOnKey,
+  toggleLikeMessage,
+  setEditMessageAction,
+  getUsersCount,
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(actions, dispatch);

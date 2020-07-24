@@ -1,51 +1,52 @@
 import callWebApi from '../helpers/webApiHelper';
 
-export const getMessages = async () => {
+export const login = async (request) => {
   const response = await callWebApi({
-    endpoint: '/api/messages',
+    endpoint: '/api/auth',
+    type: 'post',
+    request,
+  });
+  return response.json();
+};
+
+export const getUsers = async () => {
+  const response = await callWebApi({
+    endpoint: '/api/users',
     type: 'GET',
   });
   return response.json();
 };
 
-export const getMessage = async (id) => {
+export const getUser = async (id) => {
+  console.log(id);
   const response = await callWebApi({
-    endpoint: `/api/messages/${id}`,
+    endpoint: `/api/users/${id}`,
     type: 'GET',
   });
   return response.json();
 };
 
-export const addMessage = async (request) => {
+export const registerUser = async (request) => {
   const response = await callWebApi({
-    endpoint: '/api/messages',
+    endpoint: '/api/users',
     type: 'POST',
     request,
   });
   return response.json();
 };
 
-export const editMessage = async (request) => {
+export const editUser = async (request) => {
   const response = await callWebApi({
-    endpoint: '/api/messages',
+    endpoint: '/api/users',
     type: 'PUT',
     request,
   });
   return response.json();
 };
 
-export const toggleLikeMessage = async (request) => {
+export const deleteUser = async (id) => {
   const response = await callWebApi({
-    endpoint: '/api/messages/react',
-    type: 'PUT',
-    request,
-  });
-  return response.json();
-};
-
-export const deleteMessage = async (id) => {
-  const response = await callWebApi({
-    endpoint: `/api/messages/${id}`,
+    endpoint: `/api/users/${id}`,
     type: 'DELETE',
   });
   return response.json();

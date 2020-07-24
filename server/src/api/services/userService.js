@@ -1,5 +1,3 @@
-const bcrypt = require('bcryptjs');
-
 const UserRepository = require('../../data/repositories/userRepository');
 const User = require('../../data/models/user');
 
@@ -19,11 +17,11 @@ const getUserById = async (id) => {
   } catch (err) {
     return err;
   }
-}
+};
 
-const addUser = async ({ name, password }) => {
+const addUser = async ({ name, surname, password }) => {
   try {
-    return await userRepository.addUser({ name, password });
+    return await userRepository.addUser({ name, surname, password });
   } catch (err) {
     return err;
   }
@@ -40,7 +38,7 @@ const editUser = async (user) => {
 const deleteUser = async (id) => {
   try {
     return await userRepository.deleteUser(id);
-  } catch(err) {
+  } catch (err) {
     return err;
   }
 };

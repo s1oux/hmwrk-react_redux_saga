@@ -17,7 +17,7 @@ class UserRepository {
     return await this.model.findById(id);
   }
 
-  async addUser({ name, password }) {
+  async addUser({ name, surname, password }) {
     const user = await this.getUserByName(name);
     if (user) {
       return { error: 'User with such name already exists' };
@@ -27,6 +27,7 @@ class UserRepository {
     const hash = bcrypt.hashSync(password, salt);
     const newUser = new this.model({
       name: name,
+      surname: surname,
       password: hash,
     });
     return await newUser.save();
@@ -35,8 +36,8 @@ class UserRepository {
   async editUser(user) {
     const updatedUser = await this.model.findByIdAndUpdate(
       user._id,
-      { $set: {name: user.name}},
-      {new: true}
+      { $set: { name: user.name, surname: user.surname } },
+      { new: true }
     );
     return updatedUser;
   }
@@ -46,38 +47,5 @@ class UserRepository {
     return removedUser;
   }
 }
-
-// const getUsers = async () => {
-//   try {
-//     return await User.find().sort({ createdAt: 1 });
-//   } catch (err) {
-//     return err;
-//   }
-// };
-
-// const addUser = async ({ name, password }) => {
-//   const user = await User.findOne({ name });
-//   if (user) {
-//     return { error: 'User with such name already exists' };
-//   }
-//   console.log(`${name} - ${password}`);
-//   console.log(user);
-
-//   const newUser = new User({
-//     name: name,
-//     password: password,
-//   });
-
-//   bcrypt.genSalt(10, (err, salt) => {
-//     bcrypt.hash(newUser.password, salt, async (err, hash) => {
-//       if (err) throw err;
-//       newUser.password = hash;
-//       return await newUser.save();
-//     });
-//   });
-// };
-
-// exports.getUsers = getUsers;
-// exports.addUser = addUser;
 
 module.exports = UserRepository;

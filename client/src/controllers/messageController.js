@@ -5,23 +5,13 @@ const MS_IN_SECOND = 1000;
 const DAY_IN_MS =
   MS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_IN_DAY;
 
-const addLikeProp = (message) => ({
-  ...message,
-  likes: [],
-});
-
-const convertDatePropToDateType = (message) => ({
+export const convertDatePropToDateType = (message) => ({
   ...message,
   createdAt: new Date(message.createdAt),
 });
 
-const sortByDateAsc = (message1, message2) =>
-  message1.createdAt - message2.createdAt;
-
 export const processMessagesInitData = (messages) => {
-  return messages
-    .map((message) => convertDatePropToDateType(addLikeProp(message)))
-    .sort(sortByDateAsc);
+  return messages.map((message) => convertDatePropToDateType(message));
 };
 
 const checkIfYesterday = (date) => {
@@ -52,28 +42,12 @@ export const groupMessagesByDate = (messages) => {
   return groupArrays;
 };
 
-export const createMessage = (user) => {
-  return (messageText) => ({
-    id: Math.random() + user.name,
-    user: user.name,
-    userId: user.id,
-    likes: [],
-    text: messageText,
-    createdAt: new Date(),
-  });
-};
-
-export const getLastUserMessage = (user, messages) => {
-  const userMessages = messages.filter((message) => message.userId === user.id);
-  return userMessages[userMessages.length - 1];
-};
-
 export const isLikedByUser = (message, user) => {
-  return message.likes.some((userId) => isLikeFound(userId, user.id));
+  return message.likes.some((userId) => isLikeFound(userId, user._id));
 };
 
 export const removeUserLike = (message, user) => {
-  return message.likes.filter((userId) => !isLikeFound(userId, user.id));
+  return message.likes.filter((userId) => !isLikeFound(userId, user._id));
 };
 
 export const isLikeFound = (userId, idInLikes) => {

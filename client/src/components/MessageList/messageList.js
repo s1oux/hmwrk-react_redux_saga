@@ -10,7 +10,7 @@ const messageList = ({
   messages,
   removeMessage: remove,
   likeMessage: like,
-  toggleModal: toggle,
+  openEdit,
 }) => {
   return (
     <div className="message-list">
@@ -22,7 +22,7 @@ const messageList = ({
               key={id}
               user={user}
               message={message}
-              toggle={toggle}
+              onEdit={openEdit}
               remove={remove}
               like={like}
             />
