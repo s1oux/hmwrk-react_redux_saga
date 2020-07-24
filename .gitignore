@@ -81,5 +81,3 @@ build
 .env.production.local
 
 package-lock.json
-
-keys_dev.js
